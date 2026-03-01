@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thought Autopsy Tool 🧠</title>
+
+<style>
+:root{
+  --bg:#020617;
+  --card:#0f172a;
+  --text:#e2e8f0;
+  --accent:#38bdf8;
+}
+
+body{
+  margin:0;
+  font-family:Segoe UI, sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  transition:background 0.6s ease;
+}
+
+.container{
+  width:90%;
+  max-width:700px;
+  background:rgba(15,23,42,0.85);
+  padding:30px;
+  border-radius:18px;
+  backdrop-filter:blur(15px);
+  box-shadow:0 0 40px rgba(0,0,0,0.6);
+  text-align:center;
+}
+
+h1{
+  margin-bottom:10px;
+  text-shadow:0 0 15px var(--accent);
+}
+
+textarea{
+  width:100%;
+  height:120px;
+  padding:15px;
+  border-radius:12px;
+  border:none;
+  outline:none;
+  font-size:1rem;
+  background:#020617;
+  color:white;
+  margin-top:15px;
+}
+
+button{
+  margin-top:15px;
+  padding:12px 25px;
+  border:none;
+  border-radius:12px;
+  background:linear-gradient(135deg,#38bdf8,#a78bfa);
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+  font-size:1rem;
+}
+
+.result{
+  margin-top:25px;
+  padding:20px;
+  border-radius:12px;
+  background:#020617;
+  box-shadow:0 0 20px rgba(0,0,0,0.5);
+}
+
+.emotion{
+  font-size:1.5rem;
+  font-weight:bold;
+  margin-bottom:10px;
+}
+
+.insight{
+  opacity:0.9;
+  line-height:1.6;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>🧠 Thought Autopsy Tool</h1>
+  <p>Type your thought and analyze your mental state</p>
+
+  <textarea id="thoughtInput" placeholder="Write your thought here..."></textarea>
+  <button onclick="analyzeThought()">🔍 Analyze Thought</button>
+
+  <div class="result" id="resultBox" style="display:none;">
+    <div class="emotion" id="emotionText"></div>
+    <div class="insight" id="insightText"></div>
+  </div>
+</div>
+
+<script>
+function analyzeThought(){
+  const text = document.getElementById("thoughtInput").value.toLowerCase();
+  const emotionText = document.getElementById("emotionText");
+  const insightText = document.getElementById("insightText");
+  const resultBox = document.getElementById("resultBox");
+
+  if(!text){
+    alert("Please write a thought first!");
+    return;
+  }
+
+  let emotion = "Neutral 😐";
+  let color = "#020617";
+  let insight = "Your thought seems balanced. Reflect calmly and proceed mindfully.";
+
+  if(text.includes("stress") || text.includes("anxious") || text.includes("worried")){
+    emotion = "Anxiety Detected 😰";
+    color = "#450a0a";
+    insight = "Your mind is experiencing stress. Try deep breathing and break tasks into smaller steps.";
+  }
+  else if(text.includes("happy") || text.includes("excited") || text.includes("joy")){
+    emotion = "Positive Emotion 😊";
+    color = "#422006";
+    insight = "Great! Your thought reflects positivity. Channel this energy into productive actions.";
+  }
+  else if(text.includes("sad") || text.includes("lonely") || text.includes("tired")){
+    emotion = "Sadness Detected 😢";
+    color = "#0f172a";
+    insight = "You might be emotionally drained. Rest, hydrate, and talk to someone you trust.";
+  }
+  else if(text.includes("confused") || text.includes("overthink") || text.includes("future")){
+    emotion = "Overthinking State 🤔";
+    color = "#1e1b4b";
+    insight = "Your mind is overanalyzing. Write down facts vs fears to regain clarity.";
+  }
+  else if(text.includes("goal") || text.includes("focus") || text.includes("discipline")){
+    emotion = "Motivated Mindset 💪";
+    color = "#052e16";
+    insight = "You are in a focused state. This is the best time to work on high-impact tasks.";
+  }
+
+  document.body.style.background = color;
+  emotionText.textContent = emotion;
+  insightText.textContent = insight;
+  resultBox.style.display = "block";
+}
+</script>
+
+</body>
+</html>
